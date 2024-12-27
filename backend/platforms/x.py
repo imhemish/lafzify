@@ -3,7 +3,7 @@ from typing import List, Optional
 from ..settings import settings
 from .platform import Platform
 from .platform import Location
-from ..api.secret_store import XPlatformSecrets
+from ..api.secret_store import PlatformSecrets
 
 class XPlatform(Platform):
     """
@@ -17,7 +17,7 @@ class XPlatform(Platform):
     supports_links = True
     supports_polls = True
 
-    def __init__(self, x_secrets: XPlatformSecrets):
+    def __init__(self, x_secrets: PlatformSecrets):
         self.access_token = x_secrets.access_token
         self.access_secret = x_secrets.access_secret
         self.consumer_key = x_secrets.api_key

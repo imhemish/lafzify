@@ -9,9 +9,9 @@ from .db import db
 import datetime
 from bson.objectid import ObjectId
 from .secret_store import Secrets, get_secrets_from_db
+from .supported_platforms import SupportedPlatformID
 
 PyObjectId = Annotated[str, BeforeValidator(str)]
-SupportedPlatformID = Literal['x']
 platform_lookup: Dict[SupportedPlatformID, Platform] = {
     'x': x.XPlatform,
 }
@@ -105,7 +105,7 @@ def post_text(data: PostTextRequest, background_tasks: BackgroundTasks, username
         jobs.append(Job(**job_db.model_dump()))
     return PostTextResponse(jobs=jobs)
 
-@router.get("/jobs", response_model=List[Job])
+@router.get("/jobs", response_model=List[Job], response_model_by_alias=False)
 def get_jobs(username: str = Depends(verify_token)):
     jobs = db["jobs"].find({"username": username})
-    return [Job(**job) for job in jobs]
+    return [Job(**job).model_dump(by_alias=False) for job in jobs]
