@@ -52,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20,),
                 const Text("Don't have an account?"),
                 const SizedBox(height: 10,),
+                
                 TextButton(onPressed: () => Navigator.pushReplacementNamed(context, "/signup"), child: const Text("Sign Up"))
               ],
             ),
